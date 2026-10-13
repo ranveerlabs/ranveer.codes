@@ -1,0 +1,21 @@
+body {
+    background-color: #111;
+    color: white;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+}
+h2 {
+    font-size: 20px;
+    letter-spacing: 7px;
+}
+h1 {
+    font-size:60px;
+}
+p {
+    font-weight: 700;
+}
+
+.a {
+    height: 1em;
+    width: auto;
+    vertical-align: middle;
+}
