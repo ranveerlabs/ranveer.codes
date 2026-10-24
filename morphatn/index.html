@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MorphAttention: a tiny signed dot-product accelerator.">
+    <title>morphatn</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <main>
+        <article>
+            <h1><span class="name-light">morph</span><span class="name-dark">atn</span></h1>
+            <p class="aside">morphatn is a tiny dot product accelerator made to help with the mathematical functions in transformer architectures. i built it cuz who doesnt want specialized hardware! anyways it takes 4 signed 4 bit input pairs and uses a singular multiplier over and over again and returns a 10 bit total. at the chip interface, reset is active-low: hold rst_n low through a rising clock edge, then raise it. pulse start high while idle to begin a calculation. the four calculation edges (each a rising clock edge where the circuit captures a product and adds it to the accumulator) do the arithmetic, a little walkthrough: on start accepted the total and counter gets cleared (setting busy to 1 and done to 0), then on first calc it adds 2x3, then -1 x 2, 3x-2,4x1 and finishes. the following edge holds the result and clears completion flag. to put it simpy it stays low during calc and rises alongside the completed result, then falls one clock later. done is a single cycle notif while the result lasts longer (stays in accumulator until reset takes effect or another start is accepted while idle). during testing the accumulator progressed successfully through 6,4,-2, and later 2. a new start also cleared the prev. total w/o needing reset and 4 copies of (-8) x (-8) produced 256 while four copies of -8x7 produced -224. reset cleared a partial total of 112 and returned unit to idle. the automated gh actions workflow checked the example via chip facing pins incl. output directions and completition timing. all simulations so far! for the chip i used the tiny tapeout gf180 verilog template (targetting one tile), more details: the wrapper packs query and key into the eight input pins, the ten bit result spans eight dedicated outputs and two configurable pins; other pins carry start, busy, and done, the physical-design build, precheck, and gate level sim passed,
+and lastly design has not yet fabbed! repo link below</p>
+        </article>
+        <nav aria-label="links">
+            <a href="../">home</a>
+            <a href="https://github.com/ranveerlabs/morphatn-asic">repository</a>
+        </nav>
+    </main>
+</body>
+</html>
