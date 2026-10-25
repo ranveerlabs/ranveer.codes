@@ -68,3 +68,20 @@ nav { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 2.5rem; }
 section > p:nth-of-type(even) { color: #f3c4d5; }
 nav a:first-child { color: #bdebc9; }
 nav a:nth-child(2) { color: #75ab87; }
+
+figure { margin: 2rem 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid #60778e; }
+figcaption { margin-top: 0.7rem; color: var(--muted); font-size: 0.8rem; line-height: 1.6; }
+
+
+.write-up section { margin-top: 2.75rem; }
+.write-up h2 { font-size: 1.05rem; }
+.write-up ul { padding-left: 1.4rem; margin-bottom: 1.5rem; }
+.write-up li { margin-bottom: 0.65rem; }
+.table-scroll { overflow-x: auto; margin: 1.5rem 0; }
+.write-up table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.write-up caption { text-align: left; color: var(--math); margin-bottom: 0.75rem; }
+.write-up th, .write-up td { padding: 0.65rem 0.7rem; text-align: left; border-bottom: 1px solid #60778e; }
+.write-up th { color: var(--math); font-weight: 500; }
+
+.write-up h3 { margin: 1.75rem 0 1rem; color: var(--math); font-size: 0.95rem; }

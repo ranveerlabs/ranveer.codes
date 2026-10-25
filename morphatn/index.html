@@ -3,16 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="MorphAttention: a tiny signed dot-product accelerator.">
+    <meta name="description" content="MorphAttention: a tiny signed dot product accelerator">
     <title>morphatn</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <main>
-        <article>
-            <h1><span class="name-light">morph</span><span class="name-dark">atn</span></h1>
-            <p class="aside">morphatn is a tiny dot product accelerator made to help with the mathematical functions in transformer architectures. i built it cuz who doesnt want specialized hardware! anyways it takes 4 signed 4 bit input pairs and uses a singular multiplier over and over again and returns a 10 bit total. at the chip interface, reset is active-low: hold rst_n low through a rising clock edge, then raise it. pulse start high while idle to begin a calculation. the four calculation edges (each a rising clock edge where the circuit captures a product and adds it to the accumulator) do the arithmetic, a little walkthrough: on start accepted the total and counter gets cleared (setting busy to 1 and done to 0), then on first calc it adds 2x3, then -1 x 2, 3x-2,4x1 and finishes. the following edge holds the result and clears completion flag. to put it simpy it stays low during calc and rises alongside the completed result, then falls one clock later. done is a single cycle notif while the result lasts longer (stays in accumulator until reset takes effect or another start is accepted while idle). during testing the accumulator progressed successfully through 6,4,-2, and later 2. a new start also cleared the prev. total w/o needing reset and 4 copies of (-8) x (-8) produced 256 while four copies of -8x7 produced -224. reset cleared a partial total of 112 and returned unit to idle. the automated gh actions workflow checked the example via chip facing pins incl. output directions and completition timing. all simulations so far! for the chip i used the tiny tapeout gf180 verilog template (targetting one tile), more details: the wrapper packs query and key into the eight input pins, the ten bit result spans eight dedicated outputs and two configurable pins; other pins carry start, busy, and done, the physical-design build, precheck, and gate level sim passed,
-and lastly design has not yet fabbed! repo link below</p>
+        <article class="write-up">
+            <header>
+                <h1><span class="name-light">morph</span><span class="name-dark">atn</span></h1>
+                <p class="aside">a tiny signed dot product accelerator</p>
+            </header>
+
+            <section aria-labelledby="project">
+                <h2 id="project">what i built</h2>
+                <p>morphatn is a tiny dot product accelerator made to help with the mathematical functions in transformer architectures, i built it cuz who doesnt want specialized hardware!</p>
+                <p>anyways it takes 4 signed 4 bit input pairs and uses a singular multiplier over and over again and returns a 10 bit total</p>
+            </section>
+
+            <section aria-labelledby="operation">
+                <h2 id="operation">how it works</h2>
+                <p>at the chip interface, reset is active low: hold rst_n low through a rising clock edge, then raise it, pulse start high while idle to begin a calculation</p>
+                <p>on start accepted the total and counter get cleared (setting busy to 1 and done to 0), then the next 4 rising edges each capture a product and add it to the accumulator</p>
+                <p>a little walkthrough: start clears the total to 0, then 2 × 3 brings it to 6, −1 × 2 brings it to 4, 3 × −2 brings it to −2, and 4 × 1 finishes at 2</p>
+                <p>to put it simply done stays low during calc and rises alongside the completed result, then falls one clock later, done is a single cycle notif while the result lasts longer (stays in accumulator until reset takes effect or another start is accepted while idle)</p>
+            </section>
+
+            <section aria-labelledby="testing">
+                <h2 id="testing">testing</h2>
+                <p>during testing the accumulator progressed successfully through 6, 4, −2, and later 2</p>
+                <p>a new start also cleared the prev total w/o needing reset, 4 copies of (−8) × (−8) produced 256 while four copies of (−8) × 7 produced −224, and reset cleared a partial total of 112 and returned the unit to idle</p>
+                <p>the automated gh actions test checked the example via chip facing pins incl output directions and completion timing, all simulations so far!</p>
+                <figure>
+                    <a href="images/viewer-signals.jpg"><img src="images/viewer-signals.jpg" alt="ROHD Wave Viewer screenshot showing query, key, product, accumulator, busy, and done; the final accumulator is 2." width="568" height="300" loading="lazy"></a>
+                    <figcaption>cropped screenshot of the signal rows in ROHD Wave Viewer, using the workflow trace converted to VCD. the time axis is omitted because the viewer displayed inconsistent time unit labels; inspect the original file in GTKWave for absolute timing. <a href="images/workflow-waveform.fst" download>original FST for GTKWave</a></figcaption>
+                </figure>
+                <h3>waveforms explained</h3>
+                <p>at start it goes high while idle, and at the next rising clock edge, busy rises and the accumulator clears</p>
+                <p>when inputs are given query and key change on falling edges, giving them time to settle before the next rising edge, the product changes when the inputs change because the multiplier is combinational, meaning it doesn’t wait for a clock</p>
+                <p>accumulator changes only on rising edges, progressing 0 to 6 to 4 to −2 to 2, at completion on the fourth calculation edge, the final product is added, busy falls, and done rises, afterward done falls one clock later, but the accumulator holds 2</p>
+            </section>
+
+            <section aria-labelledby="learning">
+                <h2 id="learning">what i learned</h2>
+                <p>while playing around with it i expected reset to clear the partial sum immediately for some reason but it stayed at 112 until the next rising edge cuz the reset check lives inside always @(posedge clk), so it only takes effect when that edge occurs, this was the core’s active high reset, synchronous reset is pretty cool</p>
+                <p>at the chip interface, the wrapper converts the active low rst_n input into the core’s active high reset</p>
+            </section>
+
+            <section aria-labelledby="chip">
+                <h2 id="chip">chip implementation</h2>
+                <p>for the chip i used the tiny tapeout gf180 verilog template (targeting one tile)</p>
+                <p>more details: the wrapper packs query and key into the eight input pins, the ten bit result spans eight dedicated outputs and two configurable pins, other pins carry start, busy, and done</p>
+                <p>the physical design build, precheck, and gate level sim passed</p>
+                <figure>
+                    <a href="images/chip-layout.png"><img src="images/chip-layout.png" alt="Generated GF180 physical layout for the MorphAttention tile." width="3467" height="1608" loading="lazy"></a>
+                    <figcaption>physical layout render from the GDS workflow, commit eeb0097. this is a design render, not a photograph of fabricated silicon.</figcaption>
+                </figure>
+                <p><a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523225">physical design workflow</a> · <a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523088">RTL test workflow</a></p>
+            </section>
+
+            <section aria-labelledby="status">
+                <h2 id="status">current status</h2>
+                <p>and lastly design has not yet fabbed! physical FPGA testing is still pending</p>
+            </section>
         </article>
         <nav aria-label="links">
             <a href="../">home</a>

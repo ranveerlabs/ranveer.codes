@@ -1,0 +1,196 @@
+$date
+	Sat Oct 24 07:32:31 2026
+
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1 ps
+$end
+$scope module tb $end
+$var wire 8 ! uio_oe [7:0] $end
+$var wire 8 " uo_out [7:0] $end
+$var wire 8 # uio_out [7:0] $end
+$var reg 1 $ clk $end
+$var reg 1 % ena $end
+$var reg 1 & rst_n $end
+$var reg 8 ' ui_in [7:0] $end
+$var reg 8 ( uio_in [7:0] $end
+$scope module user_project $end
+$var wire 1 $ clk $end
+$var wire 1 % ena $end
+$var wire 1 & rst_n $end
+$var wire 8 ) ui_in [7:0] $end
+$var wire 8 * uio_in [7:0] $end
+$var wire 8 + uio_oe [7:0] $end
+$var wire 8 , uo_out [7:0] $end
+$var wire 8 - uio_out [7:0] $end
+$var wire 1 . done $end
+$var wire 1 / busy $end
+$var wire 10 0 accumulator [9:0] $end
+$var wire 1 1 _unused $end
+$scope module core $end
+$var wire 1 $ clk $end
+$var wire 4 2 key [3:0] $end
+$var wire 4 3 query [3:0] $end
+$var wire 1 4 reset $end
+$var wire 1 5 start $end
+$var wire 8 6 prod [7:0] $end
+$var reg 10 7 accumulator [9:0] $end
+$var reg 1 / busy $end
+$var reg 1 . done $end
+$var reg 2 8 pairIndex [1:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b00 8
+b0000000000 7
+b00000000 6
+05
+14
+b0000 3
+b0000 2
+01
+b0000000000 0
+0/
+0.
+b00000000 -
+b00000000 ,
+b00011110 +
+b00000000 *
+b00000000 )
+b00000000 (
+b00000000 '
+0&
+1%
+1$
+b00000000 #
+b00000000 "
+b00011110 !
+$end
+#5000000
+0$
+#10000000
+1$
+#15000000
+0$
+#20000000
+1$
+#25000000
+0$
+#30000000
+1$
+#35000000
+0$
+#40000000
+1$
+#45000000
+0$
+#50000000
+1$
+#55000000
+0$
+#60000000
+1$
+#65000000
+0$
+#70000000
+1$
+#75000000
+0$
+#80000000
+1$
+#85000000
+0$
+#90000000
+1$
+#95000000
+0$
+1&
+b00000001 (
+b00000001 *
+04
+15
+#100000000
+1$
+b00001000 #
+b00001000 -
+1/
+#105000000
+0$
+05
+b00000000 *
+b00000000 (
+b00110010 '
+b00110010 )
+b0011 2
+b0010 3
+b00000110 6
+#110000000
+1$
+b00000110 "
+b00000110 ,
+b0000000110 0
+b0000000110 7
+b01 8
+#115000000
+0$
+b11111110 6
+b1111 3
+b0010 2
+b00101111 )
+b00101111 '
+#120000000
+1$
+b10 8
+b0000000100 7
+b0000000100 0
+b00000100 ,
+b00000100 "
+#125000000
+0$
+b11100011 '
+b11100011 )
+b1110 2
+b0011 3
+b11111010 6
+#130000000
+1$
+b11111110 "
+b11111110 ,
+b1111111110 0
+b1111111110 7
+b11 8
+b00001110 -
+b00001110 #
+#135000000
+0$
+b00000100 6
+b0100 3
+b0001 2
+b00010100 )
+b00010100 '
+#140000000
+1$
+b00010000 #
+b00010000 -
+b00 8
+b0000000010 7
+b0000000010 0
+b00000010 ,
+b00000010 "
+0/
+1.
+#145000000
+0$
+#150000000
+1$
+0.
+b00000000 -
+b00000000 #
+#155000000
+0$
