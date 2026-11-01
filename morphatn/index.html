@@ -6,6 +6,21 @@
     <meta name="description" content="MorphAttention: a tiny signed dot product accelerator">
     <title>morphatn</title>
     <link rel="stylesheet" href="../style.css">
+    <style>
+    body {
+        isolation: isolate;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: url("../img2.jpg") center / cover no-repeat;
+        opacity: 0.12;
+        z-index: -1;
+        pointer-events: none;
+    }
+</style>
 </head>
 <body>
     <main>
@@ -35,8 +50,8 @@
                 <p>a new start also cleared the prev total w/o needing reset, 4 copies of (−8) × (−8) produced 256 while four copies of (−8) × 7 produced −224, and reset cleared a partial total of 112 and returned the unit to idle</p>
                 <p>the automated gh actions test checked the example via chip facing pins incl output directions and completion timing, all simulations so far!</p>
                 <figure>
-                    <a href="images/viewer-signals.jpg"><img src="images/viewer-signals.jpg" alt="ROHD Wave Viewer screenshot showing query, key, product, accumulator, busy, and done; the final accumulator is 2." width="568" height="300" loading="lazy"></a>
-                    <figcaption>cropped screenshot of the signal rows in ROHD Wave Viewer, using the workflow trace converted to VCD. the time axis is omitted because the viewer displayed inconsistent time unit labels; inspect the original file in GTKWave for absolute timing. <a href="images/workflow-waveform.fst" download>original FST for GTKWave</a></figcaption>
+                    <a href="images/viewer-signals.jpg"><img src="images/viewer-signals.jpg" width="568" height="300" loading="lazy"></a>
+                    <figcaption>cropped screenshot of the signal rows in ROHD Wave Viewer, using the workflow trace converted to VCD. the time axis is omitted because the viewer displayed inconsistent time unit labels; inspect the original file in GTKWave for absolute timing. <a href="images/workflow-waveform.fst" download>original fst for gtkwave</a></figcaption>
                 </figure>
                 <h3>waveforms explained</h3>
                 <p>at start it goes high while idle, and at the next rising clock edge, busy rises and the accumulator clears</p>
@@ -56,10 +71,10 @@
                 <p>more details: the wrapper packs query and key into the eight input pins, the ten bit result spans eight dedicated outputs and two configurable pins, other pins carry start, busy, and done</p>
                 <p>the physical design build, precheck, and gate level sim passed</p>
                 <figure>
-                    <a href="images/chip-layout.png"><img src="images/chip-layout.png" alt="Generated GF180 physical layout for the MorphAttention tile." width="3467" height="1608" loading="lazy"></a>
+                    <a href="images/chip-layout.png"><img src="images/chip-layout.png" width="3467" height="1608" loading="lazy"></a>
                     <figcaption>physical layout render from the GDS workflow, commit eeb0097. this is a design render, not a photograph of fabricated silicon.</figcaption>
                 </figure>
-                <p><a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523225">physical design workflow</a> · <a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523088">RTL test workflow</a></p>
+                <p><a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523225">physical design workflow</a> · <a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523088">rtl test workflow</a></p>
             </section>
 
             <section aria-labelledby="status">

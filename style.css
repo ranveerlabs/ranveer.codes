@@ -74,14 +74,15 @@ figure img { display: block; width: 100%; height: auto; border: 1px solid #60778
 figcaption { margin-top: 0.7rem; color: var(--muted); font-size: 0.8rem; line-height: 1.6; }
 
 
-.write-up section { margin-top: 2.75rem; }
-.write-up h2 { font-size: 1.05rem; }
-.write-up ul { padding-left: 1.4rem; margin-bottom: 1.5rem; }
-.write-up li { margin-bottom: 0.65rem; }
+main:has(> figure) section { margin-top: 2.75rem; }
+main:has(> figure) > nav { margin: 0 0 2rem; }
+main:has(> figure) h2 { font-size: 1.05rem; }
+main:has(> figure) ul { padding-left: 1.4rem; margin-bottom: 1.5rem; }
+main:has(> figure) li { margin-bottom: 0.65rem; }
 .table-scroll { overflow-x: auto; margin: 1.5rem 0; }
-.write-up table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-.write-up caption { text-align: left; color: var(--math); margin-bottom: 0.75rem; }
-.write-up th, .write-up td { padding: 0.65rem 0.7rem; text-align: left; border-bottom: 1px solid #60778e; }
-.write-up th { color: var(--math); font-weight: 500; }
+main:has(> figure) table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+main:has(> figure) caption { text-align: left; color: var(--math); margin-bottom: 0.75rem; }
+main:has(> figure) th, main:has(> figure) td { padding: 0.65rem 0.7rem; text-align: left; border-bottom: 1px solid #60778e; }
+main:has(> figure) th { color: var(--math); font-weight: 500; }
 
-.write-up h3 { margin: 1.75rem 0 1rem; color: var(--math); font-size: 0.95rem; }
+main:has(> figure) h3 { margin: 1.75rem 0 1rem; color: var(--math); font-size: 0.95rem; }
