@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="ranveer gill stuff">
     <title>writeup</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
     body {
         isolation: isolate;
@@ -15,17 +15,115 @@
         content: "";
         position: fixed;
         inset: 0;
-        background: url("/img.jpg") center / cover no-repeat;
+        background: url("../img.jpg") center / cover no-repeat;
         opacity: 0.12;
         z-index: -1;
         pointer-events: none;
     }
-</style>
+
+    #search {
+        position: relative;
+        width: min(100%, 360px);
+        max-height: 38vh;
+        margin: 0 auto 1.5rem;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        transition: opacity 240ms ease, transform 240ms ease, max-height 240ms ease, margin-bottom 240ms ease;
+    }
+    #search img {
+        grid-area: 1 / 1;
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 38vh;
+        object-fit: contain;
+        border: 0;
+    }
+    #box {
+        grid-area: 1 / 1;
+        z-index: 1;
+        width: 74%;
+        margin: 0;
+        padding: 0.5rem 0.65rem;
+        border: 1px solid #2d4055;
+        background: #fff3f8c9;
+        color: #212121;
+        font-size: clamp(0.72rem, 2.8vw, 0.85rem);
+        text-align: left;
+    }
+    #box p {
+        margin: 0;
+    }
+    #box p + p {
+        margin-top: 0.25rem;
+    }
+    #box p[data-pending] {
+        visibility: hidden;
+    }
+    #search[data-stage="waiting"] {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+    }
+    #search[data-stage="collapsed"] {
+        max-height: 0;
+        margin-bottom: 0;
+        opacity: 0;
+        transform: scaleY(0);
+    }
+    </style>
     <link rel="icon" href="../favicon.ico">
     <link rel="icon" type="image/png" href="../favicon.png" sizes="192x192">
+
 </head>
 <body>
     <main>
+        <div id="search">
+            <img src="../tan-paper.png">
+            <div id="box">
+                <p><strong>you:</strong> <span>hey ai do my essay</span></p>
+                <p><strong>ai:</strong> <span>no</span></p>
+                <p><strong>ai:</strong> <span>do it urself</span></p>
+            </div>
+        </div>
+        <script>
+            const paper = document.querySelector("#search");
+            const messages = [...document.querySelectorAll("#box p")];
+            const prompts = messages.map(row => row.querySelector("span").textContent);
+            const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+            async function playChat() {
+                paper.dataset.stage = "appearing";
+                await pause(240);
+
+                for (const [index, row] of messages.entries()) {
+                    const text = row.querySelector("span");
+                    text.textContent = "";
+                    row.removeAttribute("data-pending");
+                    for (const letter of prompts[index]) {
+                        await pause(55);
+                        text.textContent += letter;
+                    }
+                    await pause(index === messages.length - 1 ? 1600 : 650);
+                }
+
+                paper.dataset.stage = "collapsed";
+            }
+
+            if ("IntersectionObserver" in window &&
+                !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                messages.forEach(row => row.setAttribute("data-pending", ""));
+                paper.dataset.stage = "waiting";
+
+                const observer = new IntersectionObserver(([entry]) => {
+                    if (entry.intersectionRatio < 0.35) return;
+                    observer.disconnect();
+                    playChat();
+                }, { threshold: 0.35 });
+
+                observer.observe(paper);
+            }
+        </script>
         <article>
 
             <h1>the use of academic ai as an educational accelerator</h1>
@@ -37,7 +135,7 @@
             </p>
 
             <figure>
-                <img src="/claude-interactive-graph.png">
+                <img src="../claude-interactive-graph.png">
                 <figcaption>
                     claude, anthropic's ai agent generating an interactive ui graph
                     about supply and demand curves.
@@ -46,6 +144,7 @@
 
             <section>
                 <h2>although this yields a visually striking and overall 'impressive' allure, is it fair to compare it to something worked through by an individual themselves?</h2>
+                <p><a href="https://www.youtube.com/watch?v=tpAG2eZZGxo">ted demo: gemini remembers a book title for you (0:00–0:22)</a></p>
                 <p>
                     i believe that boils down to general understanding about one's own
                     creation, which leads me to my actual thesis inspired by a paper
@@ -58,16 +157,16 @@
             </section>
 
             <figure>
-                <img src="/girls-reading-carriere.jpg">
+                <img src="../girls-reading-carriere.jpg">
                 <figcaption>
                     girls reading by eugene carriere
                 </figcaption>
             </figure>
             <section>
                 <h2>why did it help?</h2>
-                <p>the paper mentions the tutor was a gpt-4 model with teaching instructions given to encourage participation, avoid overwhelming students, and provide encouragement. these parameters directly reduce barriers to participation by reliving the stress of students who either feel embarassed to ask specific questions to a figure of authority (e.g a professsor), have no choice over method, or are confused about the topic. seperately, an always-on tutor also provides self pacing, which can greatly help with scheduling compared to lecture availiblilty. this doesnt inherently prove that an ai tutor solves the pains of learning completely, yet it attempts to reduce them significantly.
+                <p>the paper mentions the tutor was a gpt-4 model with teaching instructions given to encourage participation, avoid overwhelming students, and provide encouragement. these parameters directly reduce barriers to participation by reliving the stress of students who either feel embarassed to ask specific questions to a figure of authority (e.g a professsor), have no choice over method, or are confused about the topic. seperately, an always-on tutor also provides self pacing, which can greatly help with scheduling compared to lecture availiblilty. this doesnt inherently prove that an ai tutor solves the pains of learning completely, yet it attempts to reduce them significantly.</p>
             <figure>
-                <img src="/melancholy-munch.jpg">
+                <img src="../melancholy-munch.jpg">
                 <figcaption>
                     melancholy by edvard munch
                 </figcaption>
@@ -75,9 +174,9 @@
             </section>
             <section>
                 <h2>going forward</h2>
-                <p>still, the difference is in what is requested. a student could ask ai to solve a physics problem and copy the result, or attempt it first and ask for a hint where they get stuck. even both produce a completed answer, except one requires the student to work through the reasoning by themselves. this is where my about argument about how ai should make it easier to engage with difficult material while keeping the thinking in the students hands arises. one way to check this is to put the tutor away and try a similar problem independently, or atleast have it give you hints. the end goal is to reach a point at which you are no longer dependent on it compared to when you began. similar to how plants and fungi detach their seeds, burrs, or spores from the parent organism. allowing them to catch the wind, water, or passing animals to travel, find new soil, and regenerate elsewhere (or in this case find a new topic and repeat the process if wanted).
+                <p>still, the difference is in what is requested. a student could ask ai to solve a physics problem and copy the result, or attempt it first and ask for a hint where they get stuck. even both produce a completed answer, except one requires the student to work through the reasoning by themselves. this is where my about argument about how ai should make it easier to engage with difficult material while keeping the thinking in the students hands arises. one way to check this is to put the tutor away and try a similar problem independently, or atleast have it give you hints. the end goal is to reach a point at which you are no longer dependent on it compared to when you began. similar to how plants and fungi detach their seeds, burrs, or spores from the parent organism. allowing them to catch the wind, water, or passing animals to travel, find new soil, and regenerate elsewhere (or in this case find a new topic and repeat the process if wanted).</p>
             <figure>
-                <img src="/tree.jpg">
+                <img src="../tree.jpg">
                 <figcaption>
                     the lonely tree by caspar d. friedrich
                 </figcaption>
