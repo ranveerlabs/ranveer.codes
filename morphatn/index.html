@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="MorphAttention: a tiny signed dot product accelerator">
+    <meta name="description" content="morphattention: a tiny signed dot product accelerator">
     <title>morphatn</title>
     <link rel="stylesheet" href="../style.css">
     <style>
@@ -45,7 +45,6 @@
                 <p>a little walkthrough: start clears the total to 0, then 2 × 3 brings it to 6, −1 × 2 brings it to 4, 3 × −2 brings it to −2, and 4 × 1 finishes at 2</p>
                 <p>to put it simply done stays low during calc and rises alongside the completed result, then falls one clock later, done is a single cycle notif while the result lasts longer (stays in accumulator until reset takes effect or another start is accepted while idle)</p>
             </section>
-
             <section aria-labelledby="testing">
                 <h2 id="testing">testing</h2>
                 <p>during testing the accumulator progressed successfully through 6, 4, −2, and later 2</p>
@@ -53,7 +52,7 @@
                 <p>the automated gh actions test checked the example via chip facing pins incl output directions and completion timing, all simulations so far!</p>
                 <figure>
                     <a href="images/viewer-signals.jpg"><img src="images/viewer-signals.jpg" width="568" height="300" loading="lazy"></a>
-                    <figcaption>cropped screenshot of the signal rows in ROHD Wave Viewer, using the workflow trace converted to VCD. the time axis is omitted because the viewer displayed inconsistent time unit labels; inspect the original file in GTKWave for absolute timing. <a href="images/workflow-waveform.fst" download>original fst for gtkwave</a></figcaption>
+                    <figcaption>cropped screenshot of the signal rows in rohd wave viewer, using the workflow trace converted to vcd. the time axis is omitted because the viewer displayed inconsistent time unit labels; inspect the original file in gtkwave for absolute timing. <a href="images/workflow-waveform.fst" download>original fst for gtkwave</a></figcaption>
                 </figure>
                 <h3>waveforms explained</h3>
                 <p>at start it goes high while idle, and at the next rising clock edge, busy rises and the accumulator clears</p>
@@ -74,14 +73,14 @@
                 <p>the physical design build, precheck, and gate level sim passed</p>
                 <figure>
                     <a href="images/chip-layout.png"><img src="images/chip-layout.png" width="3467" height="1608" loading="lazy"></a>
-                    <figcaption>physical layout render from the GDS workflow, commit eeb0097. this is a design render, not a photograph of fabricated silicon.</figcaption>
+                    <figcaption>heres a physical layout render from the gds workflow, commit eeb0097 (this is a design render)</figcaption>
                 </figure>
-                <p><a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523225">physical design workflow</a> · <a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523088">rtl test workflow</a></p>
+                <p><a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523225">physical design workflow</a> - <a href="https://github.com/ranveerlabs/morphatn-asic/actions/runs/40074523088">rtl test workflow</a></p>
             </section>
 
             <section aria-labelledby="status">
                 <h2 id="status">current status</h2>
-                <p>and lastly design has not yet fabbed! physical FPGA testing is still pending</p>
+                <p>and lastly design has not yet fabbed! physical fpga testing is still pending</p>
             </section>
         </article>
         <nav aria-label="links">
