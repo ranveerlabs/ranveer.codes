@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='description' content='guide to cool rocks'>
+    <title>my rocks</title>
+    <link rel='stylesheet' href='../style.css'>
+    <link rel='icon' href='../favicon.ico'>
+    <style>
+        body {
+            max-width: 1050px;
+            isolation: isolate;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: -5vmax;
+            background: url('van-gogh-cypresses.jpg') center / cover no-repeat;
+            opacity: 0.18;
+            z-index: -1;
+            pointer-events: none;
+        }
+        main {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            align-items: center;
+            gap: 2rem;
+        }
+        h1 {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            margin: 0;
+        }
+        h1 img {
+            position: absolute;
+            width: 75%;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+        }
+        main > img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #60778e;
+        }
+        main p { color: #f3c4d5; }
+        li { margin-bottom: 1rem; }
+        li:nth-child(1) { color: #bdebc9; }
+        li:nth-child(2) { color: #fff0ad; }
+        li:nth-child(3) { color: #9fcaff; }
+        li:nth-child(4) { color: #e3aec2; }
+        main p:last-child { color: #bdebc9; }
+        @media (max-width: 600px) {
+            main { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div>
+            <h1 aria-label='guide to cool rocks'><img src='../crayons.png'></h1>
+            <p>pictured to the right (or bottom) of this writing is my epic rock collection containing various sorts of granite, diorite, and granodiorite (which is basically granite-diorite). also heres a tiny guide i put together for people who want to maximize their sediment sourcing shenanigans (beware of what your getting yourself into as this can be quite the life-changing experience):</p>
+            <ol>
+                <li>firstly u should choose a location, i find that the best deposits are usually nestled behind burly boulders or peculiar pathways....</li>
+                <li>next, all good tectonic stocks usually have these 3 properties (atleast in my experience): solid (optional), real, and there with you (optional too)</li>
+                <li>after validating the legitimacy of your geological instance, its recommended to take only those u find most alluring and leave the others in order to keep the hobby sustainable (i left a couple shown in the image behind cuz of this)</li>
+                <li>and lastly, dont dread that ur curating conundrum is over, as now you can further identify your solid-state aggregate! i like doing mine using old books, and i find that being wrong is okay too. its about the experience for me :) and it can be that way for you too!</li>
+            </ol>
+            <p>live rock collection data available by the ranveers rocks api</p>
+        </div>
+        <img src='../rocks.png'>
+    </main> 
+</body>
+</html>
